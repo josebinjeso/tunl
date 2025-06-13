@@ -16,6 +16,23 @@ jobs:
     environment: cf
     steps:
       - uses: actions/checkout@v4
+      - name: Set up Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: wasm32-unknown-unknown
+          override: true
+
+      - name: Install latest wasm-pack and wasm-bindgen-cli
+        run: |
+          cargo install wasm-pack --force
+          cargo install wasm-bindgen-cli --force
+
+      - name: Clear wasm-opt cache
+        run: rm -rf ~/.cache/.wasm-pack/wasm-opt-*
+
+      - name: Build WASM
+        run: wasm-pack build --target web --release
       - name: deploy
         uses: cloudflare/wrangler-action@v3
         with:
