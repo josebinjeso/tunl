@@ -16,6 +16,10 @@ jobs:
     environment: cf
     steps:
       - uses: actions/checkout@v4
+      
+      - name: Install latest Wrangler v4
+        run: npm install -g wrangler@4
+        
       - name: Set up Rust toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -37,4 +41,3 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          wrangler-version: '4'
