@@ -31,7 +31,7 @@ async fn main(req: Request, env: Env, _: Context) -> Result<Response> {
 }
 
 // Fungsi tunnel sekarang akan menerima permintaan dan memeriksa apakah itu WebSocket
-async fn tunnel(mut req: Request, cx: RouteContext<Config>) -> Result<Response> {
+async fn tunnel(req: Request, cx: RouteContext<Config>) -> Result<Response> {
     // Memperbaiki error `as_deref` dengan menggunakan `?`
     // Jika header "Upgrade" ada dan nilainya "websocket", ini adalah handshake WebSocket.
     if req.headers().get("Upgrade")?.as_deref() == Some("websocket") {
@@ -50,7 +50,7 @@ async fn tunnel(mut req: Request, cx: RouteContext<Config>) -> Result<Response> 
 
         // Mengembalikan client WebSocket ke klien
         Response::from_websocket(client)
-    } else {
+    } else { // Ini adalah bagian `else` dari `if` di atas
         // Ini adalah permintaan HTTP biasa (misalnya, dari browser atau klien non-WebSocket)
         // Kembalikan respons HTTP yang ramah atau informatif
         Ok(Response::ok(
