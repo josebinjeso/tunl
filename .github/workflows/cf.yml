@@ -36,4 +36,5 @@ jobs:
       - name: deploy
         uses: cloudflare/wrangler-action@v3
         with:
+          wrangler-version: '4'
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
