@@ -34,6 +34,7 @@ jobs:
       - name: Build WASM
         run: wasm-pack build --target web --release
       - name: deploy
-        uses: cloudflare/wrangler-action@v4
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          wrangler-version: '4'
